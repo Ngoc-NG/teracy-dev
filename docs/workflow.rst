@@ -186,6 +186,14 @@ Before doing anything, try to **reproduce** the bug. If the bug is hard to repro
 some blind clues. If you could not see how to *reproduce* the bug or any clue about it, report it
 to your supervisor collaborators to get suggestions and directions.
 
+With any bug, the following actions must be carried out:
+
+- what: determine if it's bug?
+- how: bug is reproducable? steps to reproduce?
+- test: automation tests to reproduce the identified bug?
+- root cause?
+- solution?
+
 If you could **reproduce** the bug, start branching off from the target branch with a name of the
 pattern: ``bugs/<issue_key>_<concise_title>``. MUST try to **add tests** to reproduce the bug and
 pass it.
