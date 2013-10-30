@@ -47,8 +47,8 @@ You should see the following similar messages:
     Validating models...
 
     0 errors found
-    July 01, 2013 - 10:44:01
-    Django version 1.5.1, using settings 'settings.dev'
+    October 30, 2013 - 15:44:39
+    Django version 1.5.5, using settings 'settings.project.dev'
     Development server is running at http://0.0.0.0:8000/
     Quit the server with CONTROL-C.
 
@@ -81,7 +81,7 @@ it's a Django wrapper application that includes ``html5-boilerplate`` assets and
 ``base.html`` for starting any web application with ``html5-boilerplate``. So we need to install it
 on our project.
 
-Add dependency to ``requirements/project/dev.txt`` as follow:
+Add dependency to ``requirements/project/common.txt`` as follow:
 ::
     teracy-django-html5-boilerplate
 
@@ -94,9 +94,9 @@ You should see something like this:
     Installing collected packages: teracy-django-html5-boilerplate
       Running setup.py install for teracy-django-html5-boilerplate
 
-        Skipping installation of /home/vagrant/.virtualenvs/tutorial-new/lib/python2.7/site-packages/teracy/__init__.py (namespace package)
-        Skipping installation of /home/vagrant/.virtualenvs/tutorial-new/lib/python2.7/site-packages/teracy/__init__.pyc (namespace package)
-        Installing /home/vagrant/.virtualenvs/tutorial-new/lib/python2.7/site-packages/teracy_django_html5_boilerplate-0.1.0-py2.7-nspkg.pth
+        Skipping installation of /home/vagrant/.virtualenvs/tutorial/lib/python2.7/site-packages/teracy/__init__.py (namespace package)
+        Skipping installation of /home/vagrant/.virtualenvs/tutorial/lib/python2.7/site-packages/teracy/__init__.pyc (namespace package)
+        Installing /home/vagrant/.virtualenvs/tutorial/lib/python2.7/site-packages/teracy_django_html5_boilerplate-0.2.0-py2.7-nspkg.pth
     Successfully installed teracy-django-html5-boilerplate
     Cleaning up...
 
@@ -174,3 +174,36 @@ Congratulations, you've just created a Django application and make it work even 
 nothing other than "Hello World!" page. You should now learn Django by developing many more
 applications for this ``tutorial`` project by adapting Django tutorials at
 https://docs.djangoproject.com/en/1.5/.
+
+
+Django Deployment with Heroku
+-----------------------------
+After development, it's time for production deployment.
+
+And it's very easy to deploy the ``hello`` project above to ``heroku``. You're required to have
+``heroku-toolbelt`` installed and you ``$ heroku login`` successfully.
+
+Firstly, configure ``INSTALLED_APPS`` on ``settings/project/prod.py`` file:
+::
+    INSTALLED_APPS += (
+        'teracy.html5boilerplate',
+        'apps.hello',
+    )
+
+Secondly, configure exposed urls on ``urls/project/prod.py`` file:
+::
+    urlpatterns += (
+        url(r'', include('apps.hello.urls')),
+    )
+
+The last step, create heroku apps, push, set environments and you're done.
+::
+    $ heroku apps:create
+    $ git push heroku master
+    $ heroku config:set DJANGO_SETTINGS_MODULE=settings.project.prod
+    $ heroku config:set SECRET_KEY='<your_provided_secret_key_here'
+    $ heroku labs:enable user-env-compile
+
+See more:
+- https://devcenter.heroku.com/articles/getting-started-with-django
+- https://devcenter.heroku.com/articles/django-assets

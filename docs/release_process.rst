@@ -10,8 +10,12 @@ Start
   released (for example: ``releases/0.1.0`` branch is branched off from ``develop`` branch).
 
 - Set the next iteration version for ``develop`` branch. This will make sure there is no snapshot
-version conflict between ``releases`` branch and ``develop`` branch. Moreover, ``develop`` branch
-will not be blocked.
+  version conflict between ``releases`` branch and ``develop`` branch. Moreover, ``develop`` branch
+  will not be blocked.
+
+- Imporant Note: After branching off ``releases/X.Y.Z`` branch and update ``develop`` branch
+  version, 'develop' branch must be pushed first to make sure it reflects all the up-to-date
+  versions.
 
 - Create an issue for DevOps team to create ci job if required.
 
