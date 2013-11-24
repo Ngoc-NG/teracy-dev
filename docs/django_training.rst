@@ -131,8 +131,8 @@ A specific Django application should be put under ``apps`` directory. We're goin
     $ cd personal/tutorial/apps
     $ ../manage.py startapp hello
 
-Add `hello` application to ``INSTALLED_APPS`` on ``settings/project/dev.py`` by appending the
-following configuration:
+Add `hello` application to ``INSTALLED_APPS`` on ``settings/project/dev.py`` by appending
+``apps.hello`` to ``INSTALLED_APPS``:
 ::
 
     INSTALLED_APPS += (
@@ -150,7 +150,7 @@ content:
 
     {% block body_content %}
         <h1>Hello World!</h1>
-        <h2>Welcome to <strong>teracy-dev</strong> - get development fun!</h2>
+        <h2>Welcome to teracy-dev - get development fun!</h2>
     {% endblock %}
 
 Add ``HomeTemplateView`` to ``apps/hello/views.py``:
