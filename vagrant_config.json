@@ -80,6 +80,9 @@
           "prompt":false
         }
       },
+      "nginx": {
+        "enabled":true
+      },
       "nodejs":{
         "enabled":true,
         "version":"0.10.28",

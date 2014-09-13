@@ -18,3 +18,4 @@ cookbook 'mongodb', '0.16.1'
 cookbook 'postgresql', '3.4.1'
 cookbook 'ssh_known_hosts', '1.3.2'
 cookbook 'pyenv', git: "https://github.com/sds/chef-pyenv"
+cookbook 'nginx', '1.8.0'
