@@ -1,4 +1,4 @@
-site :opscode
+source "https://supermarket.getchef.com"
 
 cookbook 'minitest-handler', '0.1.7'
 cookbook 'apt', '2.1.1'
