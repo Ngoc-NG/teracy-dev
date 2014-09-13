@@ -80,9 +80,6 @@
           "prompt":false
         }
       },
-      "nginx": {
-        "enabled":true
-      },
       "nodejs":{
         "enabled":true,
         "version":"0.10.28",
@@ -136,10 +133,16 @@
           }
         ]
       },
-      "php":{
+      "php":{ #TODO(hoatle): remove this?
         "enabled":false,
         "version":"5.4.29", //empty string: default ubuntu distribution; http://php.net/downloads.php
         "checksum":"9caf973b19ba93bb2b78f78c61643d5d"
+      },
+      "nginx": {
+        "enabled":false
+      },
+      "php_fpm":{
+        "enabled":false
       },
       "mysql":{
         "enabled":false,

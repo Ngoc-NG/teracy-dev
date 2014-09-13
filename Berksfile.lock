@@ -12,6 +12,7 @@ DEPENDENCIES
   nodejs (= 1.3.0)
   npm (= 0.1.2)
   php (= 1.4.6)
+  php-fpm
   postgresql (= 3.4.1)
   pyenv
     git: https://github.com/sds/chef-pyenv
@@ -74,6 +75,9 @@ GRAPH
     windows (>= 0.0.0)
     xml (>= 0.0.0)
     yum-epel (>= 0.0.0)
+  php-fpm (0.6.10)
+    apt (>= 0.0.0)
+    yum (>= 3.0.0)
   postgresql (3.4.1)
     apt (>= 1.9.0)
     build-essential (>= 0.0.0)
