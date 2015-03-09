@@ -1,9 +1,9 @@
 #
 # Author:: Hoat Le <hoatlevan@gmail.com>
 # Cookbook Name:: teracy-dev
-# Recipe:: github
+# Recipe:: jenkins
 #
-# Copyright 2013, Teracy, Inc.
+# Copyright 2015, Teracy, Inc.
 #
 # Redistribution and use in source and binary forms, with or without modification,
 # are permitted provided that the following conditions are met:
@@ -31,19 +31,4 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-#include_recipe 'teracy-dev::apt'
-include_recipe 'teracy-dev::workspace'
-include_recipe 'teracy-dev::alias'
-include_recipe 'teracy-dev::env'
-include_recipe 'teracy-dev::ssh_known_hosts'
-include_recipe 'teracy-dev::git'
-include_recipe 'teracy-dev::python'
-include_recipe 'teracy-dev::java'
-include_recipe 'teracy-dev::apache'
-include_recipe 'teracy-dev::php'
-include_recipe 'teracy-dev::mongodb'
-include_recipe 'teracy-dev::mysql'
-include_recipe 'teracy-dev::postgresql'
-include_recipe 'teracy-dev::rbenv'
-include_recipe 'teracy-dev::node'
-include_recipe 'teracy-dev::jenkins'
+include_recipe 'jenkins::master'
