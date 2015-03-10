@@ -17,6 +17,6 @@ cookbook 'mysql', '5.6.1'
 cookbook 'mongodb', '0.16.1'
 cookbook 'postgresql', '3.4.14'
 cookbook 'ssh_known_hosts', '2.0.0'
-cookbook 'pyenv', git: "https://github.com/sds/chef-pyenv"
+cookbook 'pyenv', git: "https://github.com/sds/chef-pyenv", tag: "v0.1.0"
 cookbook 'apache2', '3.0.0'
 cookbook 'nginx', '2.7.4'

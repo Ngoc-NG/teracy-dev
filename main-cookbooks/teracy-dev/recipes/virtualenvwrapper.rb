@@ -48,7 +48,7 @@ bash 'download_pyenv_virtualenvwrapper' do
     not_if 'ls -la /usr/local/pyenv/plugins/pyenv-virtualenvwrapper'
 end
 
-node['teracy-dev']['python']['versions'].each do |version|
+node['teracy-dev']['python']['pyenv']['versions'].each do |version|
     bash 'active_virtualenvwrapper' do
         code <<-EOF
             source /etc/profile

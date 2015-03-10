@@ -151,9 +151,13 @@
       },
       "python":{
         "enabled":true,
-        "versions":["2.7.6", "3.4.0"],
-        "global_version": "2.7.6",
+        "pyenv": {
+          "versions":["2.7.6", "3.4.0"],
+          "global_version":"2.7.6",
+          "git_ref":"v20150226"
+        },
         "pip":{
+          "version":"6.0.8",
           "globals":[
             {
               "name":"Sphinx",

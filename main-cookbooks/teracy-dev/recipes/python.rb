@@ -33,8 +33,10 @@
 #
 
 if node['teracy-dev']['python']['enabled']
-    node.default['pyenv']['pythons'] = node['teracy-dev']['python']['versions']
-    node.default['pyenv']['global'] = node['teracy-dev']['python']['global_version']
+    node.default['pyenv']['pythons'] = node['teracy-dev']['python']['pyenv']['versions']
+    node.default['pyenv']['global'] = node['teracy-dev']['python']['pyenv']['global_version']
+    node.default['pyenv']['git_ref'] = node['teracy-dev']['python']['pyenv']['git_ref']
+    node.default['pyenv']['upgrade'] = true
     include_recipe 'pyenv::system'
 
 #    %w{libpq-dev python-dev}.each do |pkg|
@@ -62,7 +64,7 @@ if node['teracy-dev']['python']['enabled']
     node.default['python']['prefix_dir'] = '/usr/local'
 
     # install global packages
-    node['teracy-dev']['python']['versions'].each do |version|
+    node['teracy-dev']['python']['pyenv']['versions'].each do |version|
         bash 'change_default_python_version' do
             code <<-EOF
                 echo $PYENV_VERSION > /usr/local/pyenv/version
@@ -91,6 +93,6 @@ if node['teracy-dev']['python']['enabled']
             echo $PYENV_VERSION > /usr/local/pyenv/version
             pyenv rehash
         EOF
-        environment 'PYENV_VERSION' => node['teracy-dev']['python']['global_version']
+        environment 'PYENV_VERSION' => node['teracy-dev']['python']['pyenv']['global_version']
     end
 end
