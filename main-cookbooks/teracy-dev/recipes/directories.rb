@@ -1,7 +1,7 @@
 #
 # Author:: Hoat Le <hoatlevan@gmail.com>
 # Cookbook Name:: teracy-dev
-# Recipe:: rbenv
+# Recipe:: directories
 #
 # Copyright 2013 - current, Teracy, Inc.
 #
@@ -31,39 +31,15 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-if node['teracy-dev']['ruby']['enabled']
-    include_recipe 'rbenv::default'
-    include_recipe 'rbenv::ruby_build'
-    ruby_versions = [] + node['teracy-dev']['ruby']['versions']
-    if ruby_versions.empty? 
-        if not node['teracy-dev']['ruby']['global_version'].empty?
-            ruby_versions.push(node['teracy-dev']['ruby']['global_version'])
-        end 
-    end
-
-    if ruby_versions.any? 
-        ruby_versions.each do |ruby_version|
-            if not ruby_version.empty? 
-                rbenv_ruby ruby_version.strip() do
-                    global true
-                end
-
-                node['teracy-dev']['ruby']['globals'].each do |pkg|
-                    rbenv_gem pkg['name'] do
-                        if !pkg['version'].strip().empty?
-                            version pkg['version']
-                        end
-                    end
-                end
-            end
-        end
-        bash 'update ruby version to default' do
-            code <<-EOF
-                rbenv global #{node['teracy-dev']['ruby']['global_version']}
-            EOF
-            environment 'HOME'=> node['rbenv']['user_home'], 'USER'=> node['rbenv']['user'] , 'RBENV_ROOT'=>'/opt/rbenv'
-            user node['rbenv']['user']
-            group node['rbenv']['group']
-        end
+node['teracy-dev']['directories'].each do |dir|
+    mode = 0775
+    action = :create
+    mode = dir['mode'] unless dir['mode'].nil? or dir['mode'].strip().empty?
+    action = dir['action'].to_sym unless dir['action'].nil? or dir['action'].strip().empty?
+    directory dir['path'] do
+        owner dir['owner']
+        group dir['group']
+        mode mode
+        action action
     end
 end
