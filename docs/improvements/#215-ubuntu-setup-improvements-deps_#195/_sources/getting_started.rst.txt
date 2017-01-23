@@ -115,7 +115,7 @@ Open the terminal window:
 
       $ version=1.9.1 && cd /tmp \
       && wget $(if [ `uname -m` == "x86_64" ]; then echo "https://releases.hashicorp.com/vagrant/$version/vagrant_${version}_x86_64.deb"; else echo "https://releases.hashicorp.com/vagrant/$version/vagrant_${version}_i686.deb"; fi;) \
-      && sudo dpkg -i vagrant* && cd --
+      && sudo dpkg -i vagrant_${version}* && rm vagrant_${version}* && cd --
 
 Next: :ref:`teracy-dev Git Clone and Vagrant Up <teracy-dev-git-clone-and-vagrant-up>`
 
