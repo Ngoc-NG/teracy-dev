@@ -253,8 +253,7 @@ file with the new name <em>cygwinsetup.exe</em> into the <em>cygwin</em> folder 
 <span id="id4"></span><h2>teracy-dev Git Clone and Vagrant Up<a class="headerlink" href="#teracy-dev-git-clone-and-vagrant-up" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">Open your terminal window and type:</p>
-<blockquote>
-<div><div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/
 $ git clone https://github.com/teracyhq/dev.git teracy-dev
 $ <span class="nb">cd</span> teracy-dev
 $ git checkout develop
@@ -263,8 +262,10 @@ $ vagrant up
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">We check out the <cite>develop</cite> branch here to use the latest development version of teracy-dev.
-When it is released, we will use the <cite>master</cite> branch - the latest stable version instead.</p>
+<ul class="last simple">
+<li>We check out the <cite>develop</cite> branch here to use the latest development version of teracy-dev.
+When it is released, we will use the <cite>master</cite> branch - the latest stable version instead.</li>
+</ul>
 </div>
 <p>You could see the error message saying that <cite>vagrant-gatling-rsync</cite> and <cite>vagrant-rsync-back</cite>
 plugins are required, so install them:</p>
@@ -305,7 +306,6 @@ has an installation issue which was reported <a class="reference external" href=
 </li>
 </ul>
 </div>
-</div></blockquote>
 </li>
 <li><p class="first">Keep the first terminal window running, open a new terminal window and use the <code class="docutils literal"><span class="pre">$</span> <span class="pre">vagrant</span> <span class="pre">ssh</span></code>
 command to access the virtual machine you have just provisioned.</p>
