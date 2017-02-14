@@ -67,24 +67,24 @@
 <h1>Node.js Development Guide<a class="headerlink" href="#node-js-development-guide" title="Permalink to this headline">¶</a></h1>
 <p>Follow this guide to create <a class="reference external" href="https://github.com/teracyhq/hello-world-nodejs">https://github.com/teracyhq/hello-world-nodejs</a> from scratch.</p>
 <p>Make sure that you have <code class="docutils literal"><span class="pre">teracy-dev</span></code> running, if not, follow the <a class="reference internal" href="getting_started.html"><span class="doc">Getting Started</span></a> guide first.</p>
-<p>Make sure that you master the <a class="reference internal" href="basic_usage.html"><span class="doc">Basic Usage</span></a> guide first.</p>
-<div class="section" id="video">
-<h2>Video<a class="headerlink" href="#video" title="Permalink to this headline">¶</a></h2>
-<p>Check out the video and follow step by step instructions below:</p>
+<p>Make sure that you master the <a class="reference internal" href="basic_usage.html"><span class="doc">Basic Usage</span></a> guide, too.</p>
+<div class="section" id="demo">
+<h2>Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h2>
+<p>Check out the video demo and follow step by step instructions below:</p>
 <iframe width="100%" height="630" src="https://www.youtube.com/embed/2200zvxIdAs" frameborder="0" allowfullscreen></iframe><div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The video is not really up to date with current teracy-dev v0.5.0, you will understand the
+<p class="last">The video is not really up to date with current teracy-dev v0.5.0, you will see the
 similar worlflow and the result, though.</p>
 </div>
 </div>
 <div class="section" id="enable-proxy-and-add-aliases-domains">
 <h2>Enable proxy and add aliases domains<a class="headerlink" href="#enable-proxy-and-add-aliases-domains" title="Permalink to this headline">¶</a></h2>
 <p>To access your nodejs web app with the domain <code class="docutils literal"><span class="pre">hello-d.teracy.dev</span></code> (dev mode) and <code class="docutils literal"><span class="pre">hello.teracy.dev</span></code>
-(prod mode), we need to enable the proxy container and domain aliases so that everything should be
+(prod mode), you need to enable the proxy container and domain aliases so that everything should be
 set up automatically under the hood for you.</p>
 <ul>
-<li><p class="first">Create <code class="docutils literal"><span class="pre">vagrant_config_override.json</span></code> file under <code class="docutils literal"><span class="pre">~/teracy-dev</span></code> directory with the following
-content:</p>
+<li><p class="first">Create <code class="docutils literal"><span class="pre">vagrant_config_override.json</span></code> file under the <code class="docutils literal"><span class="pre">~/teracy-dev</span></code> directory with the
+following content:</p>
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;provisioners&quot;</span><span class="p">:</span> <span class="p">[{</span>
     <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
@@ -108,7 +108,7 @@ content:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Reload the VM:</p>
+<li><p class="first">Reload the VM to get new configuration updated to the VM:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/teracy-dev
 $ vagrant reload
 </pre></div>
@@ -126,24 +126,24 @@ $ vagrant hostmanager
 nginx/1.11.9
 </pre></div>
 </div>
-<p>so it works.</p>
+<p>so reverse proxy works.</p>
 </li>
 </ul>
 </div>
 <div class="section" id="init-the-project">
 <h2>Init the project<a class="headerlink" href="#init-the-project" title="Permalink to this headline">¶</a></h2>
-<p>You&#8217;re going to create <cite>hello-world-nodejs</cite> application, so let&#8217;s create the app directory and init
-the app with <cite>$ npm init</cite>.</p>
+<p>You&#8217;re going to create <cite>hello-world-nodejs</cite> application, so you need to create the app directory
+and init the app with <cite>$ npm init</cite>.</p>
 <ul>
-<li><p class="first">Create the <code class="docutils literal"><span class="pre">hello-world-nodejs</span></code> directory under <code class="docutils literal"><span class="pre">~/teracy-dev/workspace</span></code> by opening a host
-terminal window and execute the following commands:</p>
+<li><p class="first">Create the <code class="docutils literal"><span class="pre">hello-world-nodejs</span></code> directory under the <code class="docutils literal"><span class="pre">~/teracy-dev/workspace</span></code> directory by
+opening a host terminal window and execute the following commands:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/teracy-dev/workspace
 $ mkdir hello-world-nodejs
 </pre></div>
 </div>
 </li>
 <li><p class="first">Use the <cite>node:6.9</cite> Docker image to run <code class="docutils literal"><span class="pre">$</span> <span class="pre">npm</span> <span class="pre">init</span></code> by <code class="docutils literal"><span class="pre">ssh</span></code> into the VM and execute the
-following commands:</p>
+commands as following:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ vagrant ssh
 $ ws
 $ <span class="nb">cd</span> hello-world-nodejs
@@ -197,7 +197,7 @@ root@85fe561:/opt/hello-world-nodejs#
 </pre></div>
 </div>
 </li>
-<li><p class="first">You need to sync the generated files from the VM machine to the host machine by opening a host
+<li><p class="first">You need to sync the generated files from the VM machine back to the host machine by opening a host
 terminal window and type:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> teracy-dev
 $ vagrant rsync-back
@@ -215,14 +215,14 @@ $ vagrant rsync-back
 <p>We&#8217;re going to use <code class="docutils literal"><span class="pre">express</span></code> for the web app construction and <code class="docutils literal"><span class="pre">nodemon</span></code> for development
 convenience.</p>
 <ul>
-<li><p class="first">Continue run the following commands within the container session:</p>
+<li><p class="first">Continue running the following commands within the container bash session:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>root@85fe561:/opt/hello-world-nodejs# npm install express --save
 root@85fe561:/opt/hello-world-nodejs# npm install nodemon --save-dev
 </pre></div>
 </div>
 </li>
-<li><p class="first">And similarly, you need to sync the generated files from the VM machine to the host machine by
-opening a host terminal window and type:</p>
+<li><p class="first">And similarly, you need to sync the generated files from the VM machine back to the host machine
+by opening a host terminal window and type:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> teracy-dev
 $ vagrant rsync-back
 </pre></div>
@@ -236,7 +236,7 @@ $ vagrant rsync-back
 <div class="section" id="add-app-js-and-update-package-json-s-scripts">
 <h2>Add app.js and update package.json&#8217;s scripts<a class="headerlink" href="#add-app-js-and-update-package-json-s-scripts" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Create <code class="docutils literal"><span class="pre">app.js</span></code> file within <code class="docutils literal"><span class="pre">hello-world-nodejs</span></code> directory with the following content:</p>
+<li><p class="first">Create <code class="docutils literal"><span class="pre">app.js</span></code> file within the <code class="docutils literal"><span class="pre">hello-world-nodejs</span></code> directory with the following content:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
 
@@ -270,12 +270,13 @@ $ vagrant rsync-back
 <dt>We need to add:</dt>
 <dd><ul class="first last simple">
 <li><code class="docutils literal"><span class="pre">Dockerfile-dev</span></code> and <code class="docutils literal"><span class="pre">docker-compose.yml</span></code> files for dev mode</li>
-<li><code class="docutils literal"><span class="pre">Dockerfile</span></code> and <code class="docutils literal"><span class="pre">docker-compose.prod.yml</span></code> for prod mode</li>
+<li><code class="docutils literal"><span class="pre">Dockerfile</span></code> and <code class="docutils literal"><span class="pre">docker-compose.prod.yml</span></code> files for prod mode</li>
 </ul>
 </dd>
 </dl>
 <ul>
-<li><p class="first">Create <code class="docutils literal"><span class="pre">Dockerfile-dev</span></code> file within <code class="docutils literal"><span class="pre">hello-world-nodejs</span></code> directory with the following content:</p>
+<li><p class="first">Create <code class="docutils literal"><span class="pre">Dockerfile-dev</span></code> file within the <code class="docutils literal"><span class="pre">hello-world-nodejs</span></code> directory with the following
+content:</p>
 <div class="highlight-docker"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="s"> node:6.9</span>
 
 <span class="k">ENV</span><span class="s"> APP=/opt/app</span>
@@ -292,7 +293,7 @@ $ vagrant rsync-back
 </pre></div>
 </div>
 </li>
-<li><p class="first">Create <code class="docutils literal"><span class="pre">docker-compose.yml</span></code> file within <code class="docutils literal"><span class="pre">hello-world-nodejs</span></code> directory with the following
+<li><p class="first">Create <code class="docutils literal"><span class="pre">docker-compose.yml</span></code> file within the <code class="docutils literal"><span class="pre">hello-world-nodejs</span></code> directory with the following
 content:</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="s">&#39;2&#39;</span>
 
@@ -317,7 +318,7 @@ content:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Create <code class="docutils literal"><span class="pre">Dockerfile</span></code> file within <code class="docutils literal"><span class="pre">hello-world-nodejs</span></code> directory with the following content:</p>
+<li><p class="first">Create <code class="docutils literal"><span class="pre">Dockerfile</span></code> file within the <code class="docutils literal"><span class="pre">hello-world-nodejs</span></code> directory with the following content:</p>
 <div class="highlight-docker"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="s"> node:6.9</span>
 
 <span class="k">ENV</span><span class="s"> APP=/opt/app NODE_ENV=production</span>
@@ -334,8 +335,8 @@ content:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Create <code class="docutils literal"><span class="pre">docker-compose.prod.yml</span></code> file within <code class="docutils literal"><span class="pre">hello-world-nodejs</span></code> directory with the following
-content:</p>
+<li><p class="first">Create <code class="docutils literal"><span class="pre">docker-compose.prod.yml</span></code> file within the <code class="docutils literal"><span class="pre">hello-world-nodejs</span></code> directory with the
+following content:</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="s">&#39;2&#39;</span>
 
 <span class="l l-Scalar l-Scalar-Plain">services</span><span class="p p-Indicator">:</span>
@@ -362,7 +363,7 @@ content:</p>
 </div>
 <div class="section" id="run-on-dev-mode">
 <h2>Run on dev mode<a class="headerlink" href="#run-on-dev-mode" title="Permalink to this headline">¶</a></h2>
-<p>Open a new terminal window, <cite>ssh</cite> into the teracy-dev VM to execute the following commands:</p>
+<p>Open a new terminal window, <cite>ssh</cite> into the <code class="docutils literal"><span class="pre">teracy-dev</span></code> VM to execute the following commands:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ vagrant ssh
 $ ws
 $ <span class="nb">cd</span> hello-world-nodejs
@@ -373,7 +374,7 @@ $ docker-compose up -d
 </div>
 <div class="section" id="run-on-prod-mode">
 <h2>Run on prod mode<a class="headerlink" href="#run-on-prod-mode" title="Permalink to this headline">¶</a></h2>
-<p>Open a new terminal window,, <cite>ssh</cite> into the teracy-dev VM to execute the following commands:</p>
+<p>Open a new terminal window,, <cite>ssh</cite> into the <code class="docutils literal"><span class="pre">teracy-dev</span></code> VM to execute the following commands:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ vagrant ssh
 $ ws
 $ <span class="nb">cd</span> hello-world-nodejs
@@ -381,8 +382,8 @@ $ docker-compose -f docker-compose.prod.yml up -d
 </pre></div>
 </div>
 <p>After that, open hello.teracy.dev on your browser to see the app on the prod mode.</p>
-<p>Congratulations, you&#8217;ve created a basic hello world nodejs app with Docker workflow running
-on <code class="docutils literal"><span class="pre">teracy-dev</span></code>.</p>
+<p>Congratulations, you&#8217;ve created a basic hello world Node.js app with Docker workflow running
+on the <code class="docutils literal"><span class="pre">teracy-dev</span></code>.</p>
 </div>
 </div>
 
@@ -395,7 +396,7 @@ on <code class="docutils literal"><span class="pre">teracy-dev</span></code>.</p
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Node.js Development Guide</a><ul>
-<li><a class="reference internal" href="#video">Video</a></li>
+<li><a class="reference internal" href="#demo">Demo</a></li>
 <li><a class="reference internal" href="#enable-proxy-and-add-aliases-domains">Enable proxy and add aliases domains</a></li>
 <li><a class="reference internal" href="#init-the-project">Init the project</a></li>
 <li><a class="reference internal" href="#install-dependencies">Install dependencies</a></li>
