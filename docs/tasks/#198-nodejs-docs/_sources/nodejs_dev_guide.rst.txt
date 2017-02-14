@@ -357,5 +357,5 @@ Open a new terminal window,, `ssh` into the teracy-dev VM to execute the followi
 
 After that, open hello.teracy.dev on your browser to see the app on the prod mode.
 
-That's it, we've created a basic example for a hello world nodejs app with Docker workflow running
-on ``teracy-dev``. Happy hacking!
+Congratulations, you've created a basic hello world nodejs app with Docker workflow running
+on ``teracy-dev``.
