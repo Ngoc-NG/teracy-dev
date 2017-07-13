@@ -193,7 +193,7 @@ Follow step by step instructions below:
        This is required for the ``vagrant`` installation later, see more:
        https://github.com/teracyhq/dev/issues/348#issuecomment-315068962
 
-   Type the command below on the opened ``Command Prompt``:
+   Run ``Command Prompt`` **as administrator** and type the following command:
 
    ..  code-block:: bash
 
