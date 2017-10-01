@@ -2,7 +2,7 @@ Getting Started
 ===============
 
 ``teracy-dev`` is created to set up a universal development platform which has the same development
-workflow on Mac, Linux and Windows with good developer experience and productivity in mind. 
+workflow on Mac, Linux and Windows with good developer experience and productivity in mind.
 
 
 Please follow the installation instruction below, after that, the instruction step for teracy-dev
@@ -202,7 +202,7 @@ Follow step by step instructions below:
    After the installation is finished, restart the machine.
 
 3. Install ``cygwin`` and ``cyg-get``
-   
+
    Type the command below on the opened ``Command Prompt``:
 
    ..  code-block:: bash
@@ -377,6 +377,10 @@ Git Setup
 ---------
 
 To work with ``git``, complete the following guides to set up ssh keys:
-https://help.github.com/categories/ssh/
+https://help.github.com/articles/connecting-to-github-with-ssh/
+
+   .. note::
+
+      On Windows, you must always use ``Cygwin Terminal``, not ``Git Bash``.
 
 *Congratulations, you’ve all set now!*
