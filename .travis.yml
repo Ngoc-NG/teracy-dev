@@ -1,45 +1,46 @@
-group: deprecated-2017Q2 # see: https://blog.travis-ci.com/2017-06-21-trusty-updates-2017-Q2-launch
 services:
-- docker
+  - docker
 env:
-  matrix:
-  - BUILD_TYPE=dev CI_REGISTRY_IMAGE=$DEV_DOCKER_IMAGE IMAGE_TAG_PREFIX=dev_
-  - BUILD_TYPE=docs CI_REGISTRY_IMAGE=$DOCS_DOCKER_IMAGE IMAGE_TAG_PREFIX=""
   global:
-  - DOCKER_FILE=Dockerfile-dev
-  - CI_BUILD_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    CI_BUILD_TIME: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    CI_BUILD_ID: $TRAVIS_BUILD_ID
+    CI_BUILD_REF: $TRAVIS_COMMIT
+    CI_BUILD_REF_NAME: $TRAVIS_BRANCH
+    CI_BUILD_NUMBER: $TRAVIS_BUILD_NUMBER
+    CI_BUILDER: travis-ci
+    CI_PROJECT_NAME: $TRAVIS_REPO_SLUG
 
-before_install:
-- git submodule update --init --recursive
-# install the latest docker and docker-compose versions
-- sudo apt-get remove docker docker-engine
-- sudo curl -sSL https://get.docker.com/ | sh
-- sudo rm /usr/local/bin/docker-compose
-# the latest docker-compose version
-- export DOCKER_COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
-- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-- chmod +x docker-compose
-- sudo mv docker-compose /usr/local/bin
-- docker version
-- docker-compose version
-# install
-install: true
-before_script:
-- chmod ugo+x ./.travis/build.sh
-- chmod ugo+x ./.travis/deploy.sh
-- git config --global user.name "Teracy Bot"
-- git config --global user.email "teracy.com@gmail.com"
-- export REPO_URL="https://$GH_TOKEN@github.com/$GH_REPO.git"
-- . ./.travis/setup.sh
-- echo $DEPLOY_HTML_DIR
-- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH | sed -e 's/[\/]/-/g' | sed -e 's/[\#]//g'; fi`
-- export CONTAINER_IMAGE=$CI_REGISTRY_IMAGE:$IMAGE_TAG_PREFIX$TAG
-script:
-- ./.travis/build.sh
-after_success:
-- ./.travis/deploy.sh
-notifications:
-  slack:
-    rooms:
-      secure: 7rOCiLQZBvSATaFhw/6AgLRo/dGtoume8t0Bmaao5Tp7RKe99qLdN672OzY8aQzxWvP6pexcTvgcVaIIIEk808F7l6tTsz4HRp1TNwxeb0q6kiW0ZgTGS7KvRe17sSpcLUv26T1/flaLbmOaRoqNm/e77onenuuEgM5LTIkc11s=
-    on_success: change
+jobs:
+  include:
+    - stage: build-verify
+      before_install:
+      # install the latest docker and docker-compose versions
+      - sudo apt-get remove docker docker-engine
+      - sudo curl -sSL https://get.docker.com/ | sh
+      - sudo rm /usr/local/bin/docker-compose
+      # the latest docker-compose version
+      - export DOCKER_COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
+      - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+      - chmod +x docker-compose
+      - sudo mv docker-compose /usr/local/bin
+      - docker version
+      - docker-compose version
+      before_script:
+      - export CI_PROJECT_NAMESPACE=`echo $TRAVIS_REPO_SLUG | cut -d"/" -f1 | sed 's/[^a-zA-Z0-9-]//g'`;
+      - export CI_PROJECT_NAME=`echo $TRAVIS_REPO_SLUG | cut -d"/" -f2 | sed 's/[^a-zA-Z0-9-]//g'`;
+      - export DOCKER_USER=${DOCKER_USER:-$CI_PROJECT_NAMESPACE}
+      - export DOCKER_REPO=${DOCKER_REPO:-$CI_PROJECT_NAME}
+      - export CI_REGISTRY_IMAGE=$DOCKER_USER/$DOCKER_REPO
+      - export IMG_TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH | sed -e 's/[\/]/-/g' | sed -e 's/[\#]//g'; fi`
+      # - export APP_DEV_BASE_IMAGE=$CI_REGISTRY_IMAGE:base-$IMG_TAG
+      # - echo $APP_DEV_BASE_IMAGE
+      # - export APP_PROD_IMAGE=$CI_REGISTRY_IMAGE:$IMG_TAG
+      # - echo $APP_PROD_IMAGE
+      script:
+        - echo "build-verify"
+      after_success:
+      - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+
+    - stage: deploy
+      script:
+        - echo "deploy"
